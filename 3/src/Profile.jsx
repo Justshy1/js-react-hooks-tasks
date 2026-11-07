@@ -5,7 +5,7 @@ import ThemeContext from './contexts';
 const Profile = () => {
   // BEGIN (write your solution here)
 const { theme } = useContext(ThemeContext);
-  const { className } = theme;
+const className = theme.className;
   // END
 
   return (

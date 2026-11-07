@@ -2,22 +2,18 @@ import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 // BEGIN (write your solution here)
-const factorialFunc = (number) => {
-  if (number <= 0) return 1;
-  return number * factorialFunc(number - 1);
+const Factorial = ({ value }) => {
+  const factorial = (number) => {
+    if (number <= 0) return 1;
+    return number * factorial(number - 1);
+  };
+
+  return <div>{`Factorial of ${value} is ${factorial(value)}`}</div>;
 };
 
-const Factorial = ({ number }) => {
-  const result = factorialFunc(number);
-  return (
-    <div>
-      {`Factorial of ${number} is ${result}`}
-    </div>
-  );
-};
-
-const Content = ({ value, setValue, children }) => {
+const App = () => {
   const { t, i18n } = useTranslation();
+  const [value, setValue] = useState(0);
 
   const handleLangSwitch = (e) => {
     const lang = e.target.dataset.testid;
@@ -25,7 +21,9 @@ const Content = ({ value, setValue, children }) => {
   };
 
   const getClassName = (currLang) => (
-    i18n.language === currLang ? 'btn btn-primary' : 'btn btn-outline-primary'
+    i18n.language === currLang
+      ? 'btn btn-primary'
+      : 'btn btn-outline-primary'
   );
 
   return (
@@ -50,23 +48,19 @@ const Content = ({ value, setValue, children }) => {
       </div>
       <br />
       <div className="btn-group mb-3" role="group">
-        <button type="button" className="btn btn-outline-primary" onClick={() => setValue(1)}>{`${t('factorial')} 1`}</button>
-        <button type="button" className="btn btn-outline-primary" onClick={() => setValue(5)}>{`${t('factorial')} 5`}</button>
-        <button type="button" className="btn btn-outline-primary" onClick={() => setValue(10)}>{`${t('factorial')} 10`}</button>
-        <button type="button" className="btn btn-outline-primary" onClick={() => setValue(20)}>{`${t('factorial')} 20`}</button>
+        {[1, 5, 10, 20].map((number) => (
+          <button
+            key={number}
+            type="button"
+            className="btn btn-outline-primary"
+            onClick={() => setValue(number)}
+          >
+            {`${t('factorial')} ${number}`}
+          </button>
+        ))}
       </div>
-      {children}
+      <Factorial value={value} />
     </div>
-  );
-};
-
-const App = () => {
-  const [value, setValue] = useState(0);
-
-  return (
-    <Content value={value} setValue={setValue}>
-      <Factorial number={value} />
-    </Content>
   );
 };
 // END

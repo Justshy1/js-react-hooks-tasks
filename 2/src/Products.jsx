@@ -29,13 +29,10 @@ const Products = () => {
 
   // BEGIN (write your solution here)
 useEffect(() => {
-    const fetchProducts = async () => {
-      const data = await getProducts();
-      setProducts(data);
-    };
-
-    fetchProducts();
-  }, []);
+  getProducts().then((data) => {
+    setProducts(data);
+  });
+}, []);
   // END
 
   return (

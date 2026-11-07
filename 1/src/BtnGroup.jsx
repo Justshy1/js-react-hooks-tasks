@@ -3,35 +3,31 @@ import React, { useState } from 'react';
 
 const BtnGroup = () => {
   // BEGIN (write your solution here)
-const [activeBtn, setActiveBtn] = useState(null);
+const [activeButton, setActiveButton] = useState(null);
 
-  const leftClasses = cn('btn', 'btn-secondary', 'left', {
-    active: activeBtn === 'left',
-  });
-
-  const rightClasses = cn('btn', 'btn-secondary', 'right', {
-    active: activeBtn === 'right',
-  });
-
-  return (
-    <div className="btn-group" role="group">
-      <button
-        type="button"
-        className={leftClasses}
-        onClick={() => setActiveBtn('left')}
-      >
-        Left
-      </button>
-      <button
-        type="button"
-        className={rightClasses}
-        onClick={() => setActiveBtn('right')}
-      >
-        Right
-      </button>
-    </div>
-  );
+return (
+  <div className="btn-group" role="group">
+    <button
+      type="button"
+      className={cn('btn btn-secondary left', {
+        active: activeButton === 'left',
+      })}
+      onClick={() => setActiveButton('left')}
+    >
+      Left
+    </button>
+    <button
+      type="button"
+      className={cn('btn btn-secondary right', {
+        active: activeButton === 'right',
+      })}
+      onClick={() => setActiveButton('right')}
+    >
+      Right
+    </button>
+  </div>
+);
   // END
-};
+    };
 
 export default BtnGroup;

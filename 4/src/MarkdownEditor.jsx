@@ -3,21 +3,25 @@ import Editor from '@toast-ui/editor';
 
 const MarkdownEditor = ({ onContentChange }) => {
   // BEGIN (write your solution here)
-const rootRef = useRef(null);
+const editorRef = useRef(null);
 
-  useEffect(() => {
-    const editor = new Editor({
-      el: rootRef.current,
-      hideModeSwitch: true,
-    });
+useEffect(() => {
+  const editor = new Editor({
+    el: editorRef.current,
+    hideModeSwitch: true,
+  });
 
-    editor.addHook('change', () => {
-      const content = editor.getMarkdown();
-      onContentChange(content);
-    });
-  }, [onContentChange]);
+  editor.addHook('change', () => {
+    const content = editor.getMarkdown();
+    onContentChange(content);
+  });
 
-  return <div ref={rootRef} />;
+  return () => {
+    editor.destroy();
+  };
+}, []);
+
+return <div ref={editorRef} />;
   // END
 };
 
